@@ -3,7 +3,6 @@ pipeline {
          tools {
              maven 'maven3'
          }
-    }
     stages {
         stage('Build') {
             steps {
@@ -25,5 +24,4 @@ pipeline {
                 sh './jenkins/scripts/deliver.sh'
             }
         }
-    }
 }

@@ -1,8 +1,8 @@
 pipeline {
     agent any
-         tools {
-             maven 'maven3'
-         }
+    tools {
+        maven 'maven3'
+    }
     stages {
         stage('Build') {
             steps {
@@ -26,9 +26,20 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                deploy adapters: [
-                    tomcat9(credentialsId: '7fe21514-6478-467f-bb64-86c2867e24b3', 
-                            path: '', url: 'http://18.212.151.58:8080/')
+                script {
+                    deploy adapters: [
+                        tomcat9(credentialsId: '7fe21514-6478-467f-bb64-86c2867e24b3', 
+                                path: '', 
+                                url: 'http://18.212.151.58:8080/')
                     ], contextPath: null, war: '**/*.war'
+                }
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
     }
 }
+
